@@ -1,16 +1,16 @@
 import cv2
 import numpy as np
-import datetime
 
 camera = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
 while camera.isOpened():
     success, img = camera.read()
-
     img = cv2.resize(img, (img.shape[1] * 2, img.shape[0] * 2))
     h = len(img)
     w = len(img[0])
-    angle = np.pi / 4
+    angle_rad = np.pi / 2
+    angle_deg = angle_rad * (180 / np.pi)
+    # print(angle_deg, angle_rad)
 
     x_up, y_up = w // 2, h // 4
     x_down, y_down = w // 2, h - h // 4
@@ -53,20 +53,6 @@ while camera.isOpened():
     else:
         avg_left = 255
     print('средняя яркость лев', avg_left)
-
-    print('***************')
-
-    if avg_up == 0:
-        start_time = datetime.datetime.now().time()
-        print('still black')
-        print('st', start_time)
-    else:
-        end_time = datetime.datetime.now().time()
-        print('white')
-        print('end', end_time)
-
-    # print('delta', start_time - end_time)
-    # omega = angle / delta
 
     print('------------------------')
 
